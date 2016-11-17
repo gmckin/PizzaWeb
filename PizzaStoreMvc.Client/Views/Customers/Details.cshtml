@@ -1,0 +1,74 @@
+﻿@model PizzaStoreMvc.Client.DomainModels.Customer
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Customer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Address.StreetAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address.StreetAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email.EmailAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email.EmailAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name.First)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name.First)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone.Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone.Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.State.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.State.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Zip.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Zip.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CustomerId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -16,7 +16,7 @@
     <RootNamespace>PizzaStoreMvc.Client</RootNamespace>
     <AssemblyName>PizzaStoreMvc.Client</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -43,11 +43,32 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PizzaStoreApp.WebAPI">
+      <HintPath>..\..\..\PizzaStoreApp\PizzaStoreApp.WebAPI\bin\PizzaStoreApp.WebAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -57,6 +78,14 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -90,13 +119,38 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <None Include="Properties\PublishProfiles\PizzaStoreClient.pubxml" />
+    <None Include="Scripts\jquery-1.8.0.intellisense.js" />
+    <Content Include="Scripts\jquery-1.8.0.js" />
+    <Content Include="Scripts\jquery-1.8.0.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CheeseController.cs" />
+    <Compile Include="Controllers\CrustController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\PhoneController.cs" />
+    <Compile Include="Controllers\PizzaCheeseController.cs" />
+    <Compile Include="Controllers\PizzaController.cs" />
+    <Compile Include="Controllers\PizzaToppingController.cs" />
+    <Compile Include="Controllers\SauceController.cs" />
+    <Compile Include="Controllers\SizeController.cs" />
+    <Compile Include="Controllers\StoreController.cs" />
+    <Compile Include="Controllers\ToppingController.cs" />
     <Compile Include="DomainModels\Address.cs" />
     <Compile Include="DomainModels\Cheese.cs" />
+    <Compile Include="DomainModels\City.cs" />
     <Compile Include="DomainModels\Crust.cs" />
     <Compile Include="DomainModels\Customer.cs" />
     <Compile Include="DomainModels\Email.cs" />
@@ -104,14 +158,21 @@
     <Compile Include="DomainModels\Order.cs" />
     <Compile Include="DomainModels\Phone.cs" />
     <Compile Include="DomainModels\Pizza.cs" />
+    <Compile Include="DomainModels\PizzaCheese.cs" />
+    <Compile Include="DomainModels\PizzaTopping.cs" />
     <Compile Include="DomainModels\Sauce.cs" />
     <Compile Include="DomainModels\Size.cs" />
+    <Compile Include="DomainModels\State.cs" />
     <Compile Include="DomainModels\Store.cs" />
     <Compile Include="DomainModels\Topping.cs" />
+    <Compile Include="DomainModels\Zip.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\PizzaStoreAPIContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValidAction.cs" />
+    <Compile Include="ValidName.cs" />
     <Compile Include="ViewModels\PizzaOrder.cs" />
     <Compile Include="ViewModels\PizzaOrderDetail.cs" />
     <Compile Include="ViewModels\PizzaOrderOption.cs" />
@@ -119,6 +180,82 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\CartView.cshtml" />
+    <Content Include="Views\Pizza\Index.cshtml" />
+    <Content Include="Views\Pizza\Create.cshtml" />
+    <Content Include="Views\Pizza\Delete.cshtml" />
+    <Content Include="Views\Pizza\Details.cshtml" />
+    <Content Include="Views\Pizza\Edit.cshtml" />
+    <Content Include="Views\Cheese\Create.cshtml" />
+    <Content Include="Views\Cheese\Delete.cshtml" />
+    <Content Include="Views\Cheese\Details.cshtml" />
+    <Content Include="Views\Cheese\Edit.cshtml" />
+    <Content Include="Views\Cheese\Index.cshtml" />
+    <Content Include="Views\Order\Create.cshtml" />
+    <Content Include="Views\Order\Delete.cshtml" />
+    <Content Include="Views\Order\Details.cshtml" />
+    <Content Include="Views\Order\Edit.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\OrderItem\Create.cshtml" />
+    <Content Include="Views\OrderItem\Delete.cshtml" />
+    <Content Include="Views\OrderItem\Details.cshtml" />
+    <Content Include="Views\OrderItem\Edit.cshtml" />
+    <Content Include="Views\OrderItem\Index.cshtml" />
+    <Content Include="Views\Crust\Create.cshtml" />
+    <Content Include="Views\Crust\Delete.cshtml" />
+    <Content Include="Views\Crust\Details.cshtml" />
+    <Content Include="Views\Crust\Edit.cshtml" />
+    <Content Include="Views\Crust\Index.cshtml" />
+    <Content Include="Views\Email\Create.cshtml" />
+    <Content Include="Views\Email\Delete.cshtml" />
+    <Content Include="Views\Email\Details.cshtml" />
+    <Content Include="Views\Email\Edit.cshtml" />
+    <Content Include="Views\Email\Index.cshtml" />
+    <Content Include="Views\Phone\Create.cshtml" />
+    <Content Include="Views\Phone\Delete.cshtml" />
+    <Content Include="Views\Phone\Details.cshtml" />
+    <Content Include="Views\Phone\Edit.cshtml" />
+    <Content Include="Views\Phone\Index.cshtml" />
+    <Content Include="Views\Sauce\Create.cshtml" />
+    <Content Include="Views\Sauce\Delete.cshtml" />
+    <Content Include="Views\Sauce\Details.cshtml" />
+    <Content Include="Views\Sauce\Edit.cshtml" />
+    <Content Include="Views\Sauce\Index.cshtml" />
+    <Content Include="Views\Size\Create.cshtml" />
+    <Content Include="Views\Size\Delete.cshtml" />
+    <Content Include="Views\Size\Details.cshtml" />
+    <Content Include="Views\Size\Edit.cshtml" />
+    <Content Include="Views\Size\Index.cshtml" />
+    <Content Include="Views\Topping\Create.cshtml" />
+    <Content Include="Views\Topping\Delete.cshtml" />
+    <Content Include="Views\Topping\Details.cshtml" />
+    <Content Include="Views\Topping\Edit.cshtml" />
+    <Content Include="Views\Topping\Index.cshtml" />
+    <Content Include="Views\Store\Create.cshtml" />
+    <Content Include="Views\Store\Delete.cshtml" />
+    <Content Include="Views\Store\Details.cshtml" />
+    <Content Include="Views\Store\Edit.cshtml" />
+    <Content Include="Views\Store\Index.cshtml" />
+    <Content Include="Views\PizzaTopping\Create.cshtml" />
+    <Content Include="Views\PizzaTopping\Delete.cshtml" />
+    <Content Include="Views\PizzaTopping\Details.cshtml" />
+    <Content Include="Views\PizzaTopping\Edit.cshtml" />
+    <Content Include="Views\PizzaTopping\Index.cshtml" />
+    <Content Include="Views\PizzaCheese\Create.cshtml" />
+    <Content Include="Views\PizzaCheese\Delete.cshtml" />
+    <Content Include="Views\PizzaCheese\Details.cshtml" />
+    <Content Include="Views\PizzaCheese\Edit.cshtml" />
+    <Content Include="Views\PizzaCheese\Index.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Customers\Create.cshtml" />
+    <Content Include="Views\Customers\Delete.cshtml" />
+    <Content Include="Views\Customers\Details.cshtml" />
+    <Content Include="Views\Customers\Edit.cshtml" />
+    <Content Include="Views\Customers\Index.cshtml" />
+    <Content Include="Views\Customer\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -128,13 +265,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PizzaStoreMvc.Business\PizzaStoreMvc.Business.csproj">
       <Project>{ad31f1a1-7ceb-4d86-940f-fc1b4e9f233f}</Project>
       <Name>PizzaStoreMvc.Business</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -151,7 +290,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>46999</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:46999/</IISUrl>
+          <IISUrl>http://localhost/pizzastore/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

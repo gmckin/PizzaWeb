@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -9,20 +10,25 @@ namespace PizzaStoreMvc.Client.DomainModels
   public class Order
   {
     [Key]
-    public int ID { get; set; }
+    public int OrderID { get; set; }
+
+
     [DataType(DataType.Date)]
     [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-    [Display(Name = "Entry Date")]
-    public DateTime Date { get; set; }
-
-    [Required]
-    [Range(1, Double.MaxValue, ErrorMessage = "Quantity must be greater than zero.")]
-    public int Quantity { get; set; }
+    [Display(Name = "Purchase Date")]
+    public DateTime Date { get; set; }           
 
     [DataType(DataType.Currency)]
     [Required, Display(Name = "Price")]
     [Range(0.0, Double.MaxValue, ErrorMessage = "Price cannot be zero.")]
-    public decimal Value { get; set; }
+    public decimal TotalPrice { get; set; }
 
+    public int CustomerID { get; set; }
+    [ForeignKey("CustomerID")]
+    public Customer Customer { get; set; }
+
+    public int StoreID { get; set; }
+    [ForeignKey("StoreID")]
+    public Store Store { get; set; }
   }
 }

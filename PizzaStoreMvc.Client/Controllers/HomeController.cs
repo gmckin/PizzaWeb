@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PizzaStoreMvc.Client.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +9,20 @@ namespace PizzaStoreMvc.Client.Controllers
 {
   public class HomeController : Controller
   {
+    [HttpGet]
     // GET: Home
     public ActionResult Index()
     {
-      return View();
+      var orderModel = new PizzaOrder();
+      
+      return View(orderModel);
     }
+
+    //[HttpPost]
+    //public ActionResult Index(PizzaOrder order)
+    //{
+    //  var sauce = order.Options.Sauces.FirstOrDefault(s => s.Selected);
+    //  return View(sauce);
+    //}
   }
 }

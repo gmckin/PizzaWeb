@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width" />
+  <title>_Layout</title>
+
+  @RenderSection("style", false)
+</head>
+<body>
+  <div>
+    @RenderBody()
+    
+  </div>
+  <script>src="~/Scripts\jquery-1.8.0.min.js"</script>
+  <script>src="~/Scripts\jquery-validate.min.js"</script>
+  <script>src="~/Scripts\jquery-validate.unobstrusive.min.js"</script>
+  @RenderSection("script", false)
+</body>
+</html>
