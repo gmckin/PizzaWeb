@@ -10,55 +10,57 @@ using PizzaStoreMvc.Client.DomainModels;
 using PizzaStoreMvc.Client.Models;
 using System.Threading.Tasks;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace PizzaStoreMvc.Client.Controllers
 {
-    public class CrustController : Controller
+    public class ZipController : Controller
     {
         private PizzaStoreAPIContext db = new PizzaStoreAPIContext();
+
     HttpClient client;
     //The URL of the WEB API Service
-    string url = "http://ec2-54-208-26-255.compute-1.amazonaws.com/pizzastoreapi/api/crust";
+    string url = "http://ec2-54-208-26-255.compute-1.amazonaws.com/pizzastoreapi/api/Zip";
 
-    public CrustController()
+    public ZipController()
     {
       client = new HttpClient();
       client.BaseAddress = new Uri(url);
       client.DefaultRequestHeaders.Accept.Clear();
       client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
     }
-
+    // GET: Email
     public async Task<ActionResult> Index()
     {
+      //var x = url + "/Email";
       HttpResponseMessage responseMessage = await client.GetAsync(url);
       if (responseMessage.IsSuccessStatusCode)
       {
         var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 
-        var crust = JsonConvert.DeserializeObject<List<Crust>>(responseData);
+        var zip = JsonConvert.DeserializeObject<List<Zip>>(responseData);
 
-        return View(crust);
+        return View(zip);
       }
       return View("Error");
     }
 
-    // GET: Crust/Create
-    // GET: Cheese/Create
+
+    // GET: Zip/Create
     public ActionResult Create()
     {
-      return View(new Crust());
+      return View(new Zip());
     }
 
-    // POST: Cheese/Create
+    // POST: Zip/Create
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult> Create([Bind(Include = "ID,Name,Quantity,Price")] Crust crust)
+    public async Task<ActionResult> Create([Bind(Include = "ZipID,Name")] Zip zip)
     {
-      HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, crust);
+      HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, zip);
       if (responseMessage.IsSuccessStatusCode)
       {
         return RedirectToAction("Index");
@@ -66,6 +68,7 @@ namespace PizzaStoreMvc.Client.Controllers
       return RedirectToAction("Error");
     }
 
+    // GET: Zip/Edit/5
     public async Task<ActionResult> Edit(int? id)
     {
       HttpResponseMessage responseMessage = await client.GetAsync(url + "/" + id);
@@ -73,22 +76,22 @@ namespace PizzaStoreMvc.Client.Controllers
       {
         var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 
-        var crust = JsonConvert.DeserializeObject<Crust>(responseData);
+        var zip = JsonConvert.DeserializeObject<Zip>(responseData);
 
-        return View(crust);
+        return View(zip);
       }
       return View("Error");
     }
 
-    // POST: Address/Edit/5
+    // POST: Zip/Edit/5
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult> Edit([Bind(Include = "ID,Name,Quantity,Price")]int id, Crust crust)
+    public async Task<ActionResult> Edit([Bind(Include = "ZipID, Name")]int id, Zip zip)
     {
 
-      HttpResponseMessage responseMessage = await client.PutAsJsonAsync(url + "/" + id, crust);
+      HttpResponseMessage responseMessage = await client.PutAsJsonAsync(url + "/" + id, zip);
       if (responseMessage.IsSuccessStatusCode)
       {
         return RedirectToAction("Index");
@@ -96,43 +99,44 @@ namespace PizzaStoreMvc.Client.Controllers
       return RedirectToAction("Error");
     }
 
-    // GET: Crust/Delete/5
-    public ActionResult Delete(int? id)
+
+    // GET: Zip/Details/5
+    public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Crust crust = db.Crusts.Find(id);
-            if (crust == null)
+            Zip zip = db.Zip.Find(id);
+            if (zip == null)
             {
                 return HttpNotFound();
             }
-            return View(crust);
+            return View(zip);
+        }
+           
+        // GET: Zip/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Zip zip = db.Zip.Find(id);
+            if (zip == null)
+            {
+                return HttpNotFound();
+            }
+            return View(zip);
         }
 
-    // GET: Crust/Details/5
-    public ActionResult Details(int? id)
-    {
-      if (id == null)
-      {
-        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-      }
-      Crust crust = db.Crusts.Find(id);
-      if (crust == null)
-      {
-        return HttpNotFound();
-      }
-      return View(crust);
-    }
-
-    // POST: Crust/Delete/5
-    [HttpPost, ActionName("Delete")]
+        // POST: Zip/Delete/5
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Crust crust = db.Crusts.Find(id);
-            db.Crusts.Remove(crust);
+            Zip zip = db.Zip.Find(id);
+            db.Zip.Remove(zip);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

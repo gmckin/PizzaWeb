@@ -8,121 +8,117 @@ using System.Web;
 using System.Web.Mvc;
 using PizzaStoreMvc.Client.DomainModels;
 using PizzaStoreMvc.Client.Models;
+using System.Net.Http;
+using Newtonsoft.Json;
+using System.Threading.Tasks;
+using System.Net.Http.Headers;
 
 namespace PizzaStoreMvc.Client.Controllers
 {
-    public class OrderController : Controller
+  public class OrderController : Controller
+  {
+    HttpClient client;
+     private PizzaStoreAPIContext db = new PizzaStoreAPIContext();
+    string url = "http://ec2-54-208-26-255.compute-1.amazonaws.com/pizzastoreapi/api/order";
+
+    public OrderController()
     {
-        private PizzaStoreAPIContext db = new PizzaStoreAPIContext();
-
-        // GET: Order
-        public ActionResult Index()
-        {
-            return View(db.Orders.ToList());
-        }
-
-        // GET: Order/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Order order = db.Orders.Find(id);
-            if (order == null)
-            {
-                return HttpNotFound();
-            }
-            return View(order);
-        }
-
-        // GET: Order/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Order/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "OrderID,Date,Quantity,Value")] Order order)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Orders.Add(order);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(order);
-        }
-
-        // GET: Order/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Order order = db.Orders.Find(id);
-            if (order == null)
-            {
-                return HttpNotFound();
-            }
-            return View(order);
-        }
-
-        // POST: Order/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "OrderID,Date,Quantity,Value")] Order order)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(order).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(order);
-        }
-
-        // GET: Order/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Order order = db.Orders.Find(id);
-            if (order == null)
-            {
-                return HttpNotFound();
-            }
-            return View(order);
-        }
-
-        // POST: Order/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Order order = db.Orders.Find(id);
-            db.Orders.Remove(order);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+      client = new HttpClient();
+      client.BaseAddress = new Uri(url);
+      client.DefaultRequestHeaders.Accept.Clear();
+      client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
     }
+    // GET: Order
+    public async Task<ActionResult> Index()
+    {
+      HttpResponseMessage responseMessage = await client.GetAsync(url);
+      if (responseMessage.IsSuccessStatusCode)
+      {
+        var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+
+        var Ord = JsonConvert.DeserializeObject<List<Order>>(responseData);
+
+        return View(Ord);
+      }
+      return View("Error");
+    }
+
+    public ActionResult Create()
+    {
+      return View(new Customer());
+    }
+
+    //The Post method
+    [HttpPost]
+    public async Task<ActionResult> Create(Order order)
+    {
+      HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, order);
+      if (responseMessage.IsSuccessStatusCode)
+      {
+        return RedirectToAction("Index");
+      }
+      return RedirectToAction("Error");
+    }
+    
+    public async Task<ActionResult> Edit(int id)
+    {
+      HttpResponseMessage responseMessage = await client.GetAsync(url + "/" + id);
+      if (responseMessage.IsSuccessStatusCode)
+      {
+        var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+
+        var ord = JsonConvert.DeserializeObject<Order>(responseData);
+
+        return View(ord);
+      }
+      return View("Error");
+    }
+
+    //The PUT Method
+    [HttpPost]
+    public async Task<ActionResult> Edit(int id, Order order)
+    {
+      HttpResponseMessage responseMessage = await client.PutAsJsonAsync(url + "/" + id, order);
+      if (responseMessage.IsSuccessStatusCode)
+      {
+        return RedirectToAction("Index");
+      }
+      return RedirectToAction("Error");
+    }
+
+    public async Task<ActionResult> Delete(int id)
+    {
+      HttpResponseMessage responseMessage = await client.GetAsync(url + "/" + id);
+      if (responseMessage.IsSuccessStatusCode)
+      {
+        var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+
+        var order = JsonConvert.DeserializeObject<Order>(responseData);
+
+        return View(order);
+      }
+      return View("Error");
+    }
+
+    //The DELETE method
+    [HttpPost]
+    public async Task<ActionResult> Delete(int id, Order order)
+    {
+      HttpResponseMessage responseMessage = await client.DeleteAsync(url + "/" + id);
+      if (responseMessage.IsSuccessStatusCode)
+      {
+        return RedirectToAction("Index");
+      }
+      return RedirectToAction("Error");
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+      if (disposing)
+      {
+        db.Dispose();
+      }
+      base.Dispose(disposing);
+    }
+  }
 }

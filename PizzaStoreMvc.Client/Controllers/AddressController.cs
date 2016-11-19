@@ -15,50 +15,51 @@ using Newtonsoft.Json;
 
 namespace PizzaStoreMvc.Client.Controllers
 {
-    public class CrustController : Controller
-    {
-        private PizzaStoreAPIContext db = new PizzaStoreAPIContext();
+  public class AddressController : Controller
+  {
+    private PizzaStoreAPIContext db = new PizzaStoreAPIContext();
     HttpClient client;
     //The URL of the WEB API Service
-    string url = "http://ec2-54-208-26-255.compute-1.amazonaws.com/pizzastoreapi/api/crust";
-
-    public CrustController()
+    string url = "http://ec2-54-208-26-255.compute-1.amazonaws.com/pizzastoreapi/api/Address";
+   
+    public AddressController()
     {
       client = new HttpClient();
       client.BaseAddress = new Uri(url);
       client.DefaultRequestHeaders.Accept.Clear();
       client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
     }
-
+    // GET: Email
     public async Task<ActionResult> Index()
     {
+      //var x = url + "/Email";
       HttpResponseMessage responseMessage = await client.GetAsync(url);
       if (responseMessage.IsSuccessStatusCode)
       {
         var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 
-        var crust = JsonConvert.DeserializeObject<List<Crust>>(responseData);
-
-        return View(crust);
+        var Address = JsonConvert.DeserializeObject<List<Address>>(responseData);
+       
+        return View(Address);
       }
-      return View("Error");
+      return View("Error");      
     }
 
-    // GET: Crust/Create
-    // GET: Cheese/Create
+   
+    // GET: Address/Create
     public ActionResult Create()
     {
-      return View(new Crust());
+      return View(new Address());
     }
 
-    // POST: Cheese/Create
+    // POST: Address/Create
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult> Create([Bind(Include = "ID,Name,Quantity,Price")] Crust crust)
+    public async Task<ActionResult> Create([Bind(Include = "AddressID,StreetAddress")] Address address)
     {
-      HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, crust);
+      HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, address);
       if (responseMessage.IsSuccessStatusCode)
       {
         return RedirectToAction("Index");
@@ -66,6 +67,7 @@ namespace PizzaStoreMvc.Client.Controllers
       return RedirectToAction("Error");
     }
 
+    // GET: Address/Edit/5
     public async Task<ActionResult> Edit(int? id)
     {
       HttpResponseMessage responseMessage = await client.GetAsync(url + "/" + id);
@@ -73,11 +75,11 @@ namespace PizzaStoreMvc.Client.Controllers
       {
         var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 
-        var crust = JsonConvert.DeserializeObject<Crust>(responseData);
+        var addr = JsonConvert.DeserializeObject<Address>(responseData);
 
-        return View(crust);
+        return View(addr);
       }
-      return View("Error");
+      return View("Error");     
     }
 
     // POST: Address/Edit/5
@@ -85,65 +87,65 @@ namespace PizzaStoreMvc.Client.Controllers
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult> Edit([Bind(Include = "ID,Name,Quantity,Price")]int id, Crust crust)
+    public async Task<ActionResult> Edit([Bind(Include = "AddressID,StreetAddress")]int id, Address address)
     {
 
-      HttpResponseMessage responseMessage = await client.PutAsJsonAsync(url + "/" + id, crust);
+      HttpResponseMessage responseMessage = await client.PutAsJsonAsync(url + "/" + id, address);
       if (responseMessage.IsSuccessStatusCode)
       {
         return RedirectToAction("Index");
       }
-      return RedirectToAction("Error");
+      return RedirectToAction("Error");     
     }
 
-    // GET: Crust/Delete/5
-    public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Crust crust = db.Crusts.Find(id);
-            if (crust == null)
-            {
-                return HttpNotFound();
-            }
-            return View(crust);
-        }
-
-    // GET: Crust/Details/5
+    // GET: Address/Details/5
     public ActionResult Details(int? id)
     {
       if (id == null)
       {
         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
       }
-      Crust crust = db.Crusts.Find(id);
-      if (crust == null)
+      Address address = db.Addresses.Find(id);
+      if (address == null)
       {
         return HttpNotFound();
       }
-      return View(crust);
+      return View(address);
     }
 
-    // POST: Crust/Delete/5
+    // GET: Address/Delete/5
+    public ActionResult Delete(int? id)
+    {
+      if (id == null)
+      {
+        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+      }
+      Address address = db.Addresses.Find(id);
+      if (address == null)
+      {
+        return HttpNotFound();
+      }
+      return View(address);
+    }
+
+    // POST: Address/Delete/5
     [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Crust crust = db.Crusts.Find(id);
-            db.Crusts.Remove(crust);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+    [ValidateAntiForgeryToken]
+    public ActionResult DeleteConfirmed(int id)
+    {
+      Address address = db.Addresses.Find(id);
+      db.Addresses.Remove(address);
+      db.SaveChanges();
+      return RedirectToAction("Index");
     }
+
+    protected override void Dispose(bool disposing)
+    {
+      if (disposing)
+      {
+        db.Dispose();
+      }
+      base.Dispose(disposing);
+    }
+  }
 }

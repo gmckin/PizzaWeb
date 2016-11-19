@@ -8,21 +8,97 @@ using System.Web;
 using System.Web.Mvc;
 using PizzaStoreMvc.Client.DomainModels;
 using PizzaStoreMvc.Client.Models;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace PizzaStoreMvc.Client.Controllers
 {
     public class ToppingController : Controller
     {
         private PizzaStoreAPIContext db = new PizzaStoreAPIContext();
+    HttpClient client;
+    //The URL of the WEB API Service
+    string url = "http://ec2-54-208-26-255.compute-1.amazonaws.com/pizzastoreapi/api/topping";
 
-        // GET: Topping
-        public ActionResult Index()
-        {
-            return View(db.Toppings.ToList());
-        }
+    public ToppingController()
+    {
+      client = new HttpClient();
+      client.BaseAddress = new Uri(url);
+      client.DefaultRequestHeaders.Accept.Clear();
+      client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+    }
 
-        // GET: Topping/Details/5
-        public ActionResult Details(int? id)
+    public async Task<ActionResult> Index()
+    {
+      HttpResponseMessage responseMessage = await client.GetAsync(url);
+      if (responseMessage.IsSuccessStatusCode)
+      {
+        var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+
+        var topping = JsonConvert.DeserializeObject<List<Topping>>(responseData);
+
+        return View(topping);
+      }
+      return View("Error");
+    }
+
+    // GET: Cheese/Details/5
+
+
+    // GET: Cheese/Create
+    public ActionResult Create()
+    {
+      return View(new Topping());
+    }
+
+    // POST: Cheese/Create
+    // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+    // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<ActionResult> Create([Bind(Include = "ID,Name,Quantity,Price")] Topping topping)
+    {
+      HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, topping);
+      if (responseMessage.IsSuccessStatusCode)
+      {
+        return RedirectToAction("Index");
+      }
+      return RedirectToAction("Error");
+    }
+
+    public async Task<ActionResult> Edit(int? id)
+    {
+      HttpResponseMessage responseMessage = await client.GetAsync(url + "/" + id);
+      if (responseMessage.IsSuccessStatusCode)
+      {
+        var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+
+        var topping = JsonConvert.DeserializeObject<Topping>(responseData);
+
+        return View(topping);
+      }
+      return View("Error");
+    }
+
+    // POST: Address/Edit/5
+    // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+    // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<ActionResult> Edit([Bind(Include = "ID,Name,Quantity,Price")]int id, Topping topping)
+    {
+      HttpResponseMessage responseMessage = await client.PutAsJsonAsync(url + "/" + id, topping);
+      if (responseMessage.IsSuccessStatusCode)
+      {
+        return RedirectToAction("Index");
+      }
+      return RedirectToAction("Error");
+    }
+
+    // GET: Topping/Details/5
+    public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -34,61 +110,7 @@ namespace PizzaStoreMvc.Client.Controllers
                 return HttpNotFound();
             }
             return View(topping);
-        }
-
-        // GET: Topping/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Topping/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name")] Topping topping)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Toppings.Add(topping);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(topping);
-        }
-
-        // GET: Topping/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Topping topping = db.Toppings.Find(id);
-            if (topping == null)
-            {
-                return HttpNotFound();
-            }
-            return View(topping);
-        }
-
-        // POST: Topping/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name")] Topping topping)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(topping).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(topping);
-        }
+        }       
 
         // GET: Topping/Delete/5
         public ActionResult Delete(int? id)

@@ -8,6 +8,10 @@ using System.Web;
 using System.Web.Mvc;
 using PizzaStoreMvc.Client.DomainModels;
 using PizzaStoreMvc.Client.Models;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace PizzaStoreMvc.Client.Controllers
 {
@@ -15,14 +19,41 @@ namespace PizzaStoreMvc.Client.Controllers
     {
         private PizzaStoreAPIContext db = new PizzaStoreAPIContext();
 
-        // GET: Sauce
-        public ActionResult Index()
-        {
-            return View(db.Sauces.ToList());
-        }
+    HttpClient client;
+    //The URL of the WEB API Service
+    string url = "http://ec2-54-208-26-255.compute-1.amazonaws.com/pizzastoreapi/api/sauce";
 
-        // GET: Sauce/Details/5
-        public ActionResult Details(int? id)
+    public SauceController()
+    {
+      client = new HttpClient();
+      client.BaseAddress = new Uri(url);
+      client.DefaultRequestHeaders.Accept.Clear();
+      client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+    }
+    // GET: Sauce
+    //public ActionResult Index()
+    //{
+    //    return View(db.Sauces.ToList());
+    //}
+
+    public async Task<ActionResult> Index()
+    {
+      //var x = url + "/Email";
+      HttpResponseMessage responseMessage = await client.GetAsync(url);
+      if (responseMessage.IsSuccessStatusCode)
+      {
+        var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+
+        var sauce = JsonConvert.DeserializeObject<List<Sauce>>(responseData);
+
+        return View(sauce);
+      }
+      return View("Error");
+    }
+
+
+    // GET: Sauce/Details/5
+    public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -47,7 +78,7 @@ namespace PizzaStoreMvc.Client.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name")] Sauce sauce)
+        public ActionResult Create([Bind(Include = "ID,Name,Quantity,Price")] Sauce sauce)
         {
             if (ModelState.IsValid)
             {

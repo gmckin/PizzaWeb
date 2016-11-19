@@ -30,5 +30,7 @@ namespace PizzaStoreMvc.Client.DomainModels
     public int StoreID { get; set; }
     [ForeignKey("StoreID")]
     public Store Store { get; set; }
+
+    public virtual ICollection<Pizza> Pizzas { get; set; }
   }
 }

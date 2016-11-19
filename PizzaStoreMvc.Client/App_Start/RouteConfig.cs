@@ -13,11 +13,11 @@ namespace PizzaStoreMvc.Client
     {
       routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-      routes.MapRoute(
-            name: "Customer",
-            url: "{controller}/{action}/{id}",
-            defaults: new { controller = "Customer", action = "Index", id = UrlParameter.Optional }
-      );
+      //routes.MapRoute(
+      //      name: "Customer",
+      //      url: "{controller}/{action}/{id}",
+      //      defaults: new { controller = "Customer", action = "Index", id = UrlParameter.Optional }
+      //);
 
 
       routes.MapRoute(

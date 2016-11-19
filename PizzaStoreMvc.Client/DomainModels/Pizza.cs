@@ -31,5 +31,8 @@ namespace PizzaStoreMvc.Client.DomainModels
     public int OrderID { get; set; }
     [ForeignKey("OrderID")]
     public Order Order { get; set; }
+
+    public virtual ICollection<PizzaCheese> PizzaCheeses { get; set; }
+    public virtual ICollection<PizzaTopping> PizzaToppings { get; set; }
   }
 }

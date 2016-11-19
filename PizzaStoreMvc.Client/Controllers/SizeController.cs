@@ -8,6 +8,10 @@ using System.Web;
 using System.Web.Mvc;
 using PizzaStoreMvc.Client.DomainModels;
 using PizzaStoreMvc.Client.Models;
+using System.Threading.Tasks;
+using System.Net.Http;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace PizzaStoreMvc.Client.Controllers
 {
@@ -15,14 +19,55 @@ namespace PizzaStoreMvc.Client.Controllers
     {
         private PizzaStoreAPIContext db = new PizzaStoreAPIContext();
 
-        // GET: Size
-        public ActionResult Index()
-        {
-            return View(db.Sizes.ToList());
-        }
+    HttpClient client;
+    //The URL of the WEB API Service
+    string url = "http://ec2-54-208-26-255.compute-1.amazonaws.com/pizzastoreapi/api/size";
 
-        // GET: Size/Details/5
-        public ActionResult Details(int? id)
+    public SizeController()
+    {
+      client = new HttpClient();
+      client.BaseAddress = new Uri(url);
+      client.DefaultRequestHeaders.Accept.Clear();
+      client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+    }
+
+    public async Task<ActionResult> Index()
+    {
+      HttpResponseMessage responseMessage = await client.GetAsync(url);
+      if (responseMessage.IsSuccessStatusCode)
+      {
+        var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+
+        var size = JsonConvert.DeserializeObject<List<Size>>(responseData);
+
+        return View(size);
+      }
+      return View("Error");
+    }
+
+    // GET: Crust/Create
+    // GET: Cheese/Create
+    public ActionResult Create()
+    {
+      return View(new Size());
+    }
+
+    // POST: Cheese/Create
+    // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+    // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<ActionResult> Create([Bind(Include = "ID,Name,Quantity,Price")] Size size)
+    {
+      HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, size);
+      if (responseMessage.IsSuccessStatusCode)
+      {
+        return RedirectToAction("Index");
+      }
+      return RedirectToAction("Error");
+    }
+    // GET: Size/Details/5
+    public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -34,64 +79,40 @@ namespace PizzaStoreMvc.Client.Controllers
                 return HttpNotFound();
             }
             return View(size);
-        }
+        }       
 
-        // GET: Size/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+    public async Task<ActionResult> Edit(int? id)
+    {
+      HttpResponseMessage responseMessage = await client.GetAsync(url + "/" + id);
+      if (responseMessage.IsSuccessStatusCode)
+      {
+        var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 
-        // POST: Size/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name")] Size size)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Sizes.Add(size);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        var crust = JsonConvert.DeserializeObject<Crust>(responseData);
 
-            return View(size);
-        }
+        return View(crust);
+      }
+      return View("Error");
+    }
 
-        // GET: Size/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Size size = db.Sizes.Find(id);
-            if (size == null)
-            {
-                return HttpNotFound();
-            }
-            return View(size);
-        }
+    // POST: Address/Edit/5
+    // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+    // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<ActionResult> Edit([Bind(Include = "ID,Name,Quantity,Price")]int id, Size size)
+    {
 
-        // POST: Size/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name")] Size size)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(size).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(size);
-        }
+      HttpResponseMessage responseMessage = await client.PutAsJsonAsync(url + "/" + id, size);
+      if (responseMessage.IsSuccessStatusCode)
+      {
+        return RedirectToAction("Index");
+      }
+      return RedirectToAction("Error");
+    }
 
-        // GET: Size/Delete/5
-        public ActionResult Delete(int? id)
+    // GET: Size/Delete/5
+    public ActionResult Delete(int? id)
         {
             if (id == null)
             {

@@ -5,7 +5,7 @@ namespace PizzaStoreMvc.Client.DomainModels
   public class Zip
   {
     [Key]
-    public int AddressID { get; set; }
+    public int ZipID { get; set; }
 
     [Required]
     [StringLength(160, MinimumLength = 3)]

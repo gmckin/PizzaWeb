@@ -67,5 +67,7 @@ namespace PizzaStoreMvc.Client.DomainModels
     public int EmailID { get; set; }
     [ForeignKey("EmailID")]
     public Email Email { get; set; }
+
+    public virtual ICollection<Order> Orders { get; set; }
   }
 }

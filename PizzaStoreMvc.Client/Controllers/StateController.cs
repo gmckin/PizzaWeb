@@ -8,57 +8,59 @@ using System.Web;
 using System.Web.Mvc;
 using PizzaStoreMvc.Client.DomainModels;
 using PizzaStoreMvc.Client.Models;
-using System.Threading.Tasks;
 using System.Net.Http;
-using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace PizzaStoreMvc.Client.Controllers
 {
-    public class CrustController : Controller
+    public class StateController : Controller
     {
         private PizzaStoreAPIContext db = new PizzaStoreAPIContext();
+
     HttpClient client;
     //The URL of the WEB API Service
-    string url = "http://ec2-54-208-26-255.compute-1.amazonaws.com/pizzastoreapi/api/crust";
+    string url = "http://ec2-54-208-26-255.compute-1.amazonaws.com/pizzastoreapi/api/State";
 
-    public CrustController()
+    public StateController()
     {
       client = new HttpClient();
       client.BaseAddress = new Uri(url);
       client.DefaultRequestHeaders.Accept.Clear();
       client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
     }
-
+    // GET: Email
     public async Task<ActionResult> Index()
     {
+      //var x = url + "/Email";
       HttpResponseMessage responseMessage = await client.GetAsync(url);
       if (responseMessage.IsSuccessStatusCode)
       {
         var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 
-        var crust = JsonConvert.DeserializeObject<List<Crust>>(responseData);
+        var state = JsonConvert.DeserializeObject<List<State>>(responseData);
 
-        return View(crust);
+        return View(state);
       }
       return View("Error");
     }
 
-    // GET: Crust/Create
-    // GET: Cheese/Create
+
+    // GET: State/Create
     public ActionResult Create()
     {
-      return View(new Crust());
+      return View(new State());
     }
 
-    // POST: Cheese/Create
+    // POST: State/Create
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult> Create([Bind(Include = "ID,Name,Quantity,Price")] Crust crust)
+    public async Task<ActionResult> Create([Bind(Include = "StateID,Name")] State state)
     {
-      HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, crust);
+      HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, state);
       if (responseMessage.IsSuccessStatusCode)
       {
         return RedirectToAction("Index");
@@ -66,6 +68,7 @@ namespace PizzaStoreMvc.Client.Controllers
       return RedirectToAction("Error");
     }
 
+    // GET: State/Edit/5
     public async Task<ActionResult> Edit(int? id)
     {
       HttpResponseMessage responseMessage = await client.GetAsync(url + "/" + id);
@@ -73,22 +76,22 @@ namespace PizzaStoreMvc.Client.Controllers
       {
         var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 
-        var crust = JsonConvert.DeserializeObject<Crust>(responseData);
+        var state = JsonConvert.DeserializeObject<State>(responseData);
 
-        return View(crust);
+        return View(state);
       }
       return View("Error");
     }
 
-    // POST: Address/Edit/5
+    // POST: State/Edit/5
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult> Edit([Bind(Include = "ID,Name,Quantity,Price")]int id, Crust crust)
+    public async Task<ActionResult> Edit([Bind(Include = "StateID, Name")]int id, State state)
     {
 
-      HttpResponseMessage responseMessage = await client.PutAsJsonAsync(url + "/" + id, crust);
+      HttpResponseMessage responseMessage = await client.PutAsJsonAsync(url + "/" + id, state);
       if (responseMessage.IsSuccessStatusCode)
       {
         return RedirectToAction("Index");
@@ -96,43 +99,44 @@ namespace PizzaStoreMvc.Client.Controllers
       return RedirectToAction("Error");
     }
 
-    // GET: Crust/Delete/5
-    public ActionResult Delete(int? id)
+
+    // GET: State/Details/5
+    public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Crust crust = db.Crusts.Find(id);
-            if (crust == null)
+            State state = db.State.Find(id);
+            if (state == null)
             {
                 return HttpNotFound();
             }
-            return View(crust);
+            return View(state);
+        }
+       
+        // GET: State/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            State state = db.State.Find(id);
+            if (state == null)
+            {
+                return HttpNotFound();
+            }
+            return View(state);
         }
 
-    // GET: Crust/Details/5
-    public ActionResult Details(int? id)
-    {
-      if (id == null)
-      {
-        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-      }
-      Crust crust = db.Crusts.Find(id);
-      if (crust == null)
-      {
-        return HttpNotFound();
-      }
-      return View(crust);
-    }
-
-    // POST: Crust/Delete/5
-    [HttpPost, ActionName("Delete")]
+        // POST: State/Delete/5
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Crust crust = db.Crusts.Find(id);
-            db.Crusts.Remove(crust);
+            State state = db.State.Find(id);
+            db.State.Remove(state);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

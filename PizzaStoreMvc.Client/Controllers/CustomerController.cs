@@ -37,7 +37,12 @@ namespace PizzaStoreMvc.Client.Controllers
         var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 
         var Customer = JsonConvert.DeserializeObject<List<Customer>>(responseData);
+        //ViewBag.AddressID = new SelectList(db.Addresses, "AddressID", "StreetAddress");
+        //ViewBag.CityID = new SelectList(db.Cities, "CityID", "CityName");
 
+
+        //ViewBag.StateID = new SelectList(db.States, "StateID", "StateName");
+        //ViewBag.ZipID = new SelectList(db.Zips, "ZipID", "ZipCode");
         return View(Customer);
       }
       return View("Error");
