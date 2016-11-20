@@ -88,9 +88,9 @@ namespace PizzaStoreMvc.Client.Controllers
       {
         var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 
-        var crust = JsonConvert.DeserializeObject<Crust>(responseData);
+        var size = JsonConvert.DeserializeObject<Size>(responseData);
 
-        return View(crust);
+        return View(size);
       }
       return View("Error");
     }

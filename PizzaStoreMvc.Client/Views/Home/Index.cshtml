@@ -1,39 +1,11 @@
-﻿@model PizzaStoreMvc.Client.ViewModels.PizzaOrder 
-
-@using (Html.BeginForm()) { 
-
-@Html.LabelFor(m => m.Options)
-@*@Html.DropDownListFor(m => m.Options)
-@Html.ValidationMessageFor(m =>m.Options.Sauces)
-
-@Html.LabelFor(m => m.Options.Crusts)
-@Html.DropDownListFor(m => m.Options.Crusts, Model.Options.Crusts)
-@Html.ValidationMessageFor(m => m.Options.Crusts)
-
-@Html.LabelFor(m => m.Options.Sizes)
-@Html.DropDownListFor(m => m.Options.Sizes, Model.Options.Sizes)
-@Html.ValidationMessageFor(m => m.Options.Sizes)*@
-
- <input type="submit" value="Submit" class="btn btn-default" />
-}
-
-
-
-@*@Html.LabelFor(m => m.Options.Cheeses)
+﻿
 @{
-  foreach (var item in Model.Options.Cheeses)
-  {
-    Html.CheckBox(item.Text);
-  }
+    ViewBag.Title = "Index";
 }
+<body>
+  <div>
+    <h2>Welcome to my Pizza Store!</h2>
+  </div>
+</body>
 
-@Html.LabelFor(m => m.Options.Toppings)
-@{
-  foreach (var item in Model.Options.Toppings)
-  {
-    Html.CheckBox(item.Text);
-  }
-}
-
-@Html.Partial("~/Views/Shared/CartView.cshtml", Model.Details)*@
 
