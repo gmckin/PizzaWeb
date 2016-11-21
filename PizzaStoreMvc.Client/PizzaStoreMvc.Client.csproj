@@ -394,16 +394,10 @@
     <Content Include="Views\Cheese\Details.cshtml" />
     <Content Include="Views\Cheese\Edit.cshtml" />
     <Content Include="Views\Cheese\Index.cshtml" />
-    <Content Include="Views\Order\Create.cshtml" />
     <Content Include="Views\Order\Delete.cshtml" />
     <Content Include="Views\Order\Details.cshtml" />
     <Content Include="Views\Order\Edit.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
-    <Content Include="Views\OrderItem\Create.cshtml" />
-    <Content Include="Views\OrderItem\Delete.cshtml" />
-    <Content Include="Views\OrderItem\Details.cshtml" />
-    <Content Include="Views\OrderItem\Edit.cshtml" />
-    <Content Include="Views\OrderItem\Index.cshtml" />
     <Content Include="Views\Crust\Create.cshtml" />
     <Content Include="Views\Crust\Delete.cshtml" />
     <Content Include="Views\Crust\Details.cshtml" />
@@ -449,8 +443,6 @@
     <Content Include="Views\PizzaCheese\Details.cshtml" />
     <Content Include="Views\PizzaCheese\Edit.cshtml" />
     <Content Include="Views\PizzaCheese\Index.cshtml" />
-    <Content Include="Views\Customer\Index.cshtml" />
-    <Content Include="Views\Customer\Create.cshtml" />
     <Content Include="Views\Customer\Edit.cshtml" />
     <Content Include="Views\Address\Create.cshtml" />
     <Content Include="Views\Address\Delete.cshtml" />
@@ -482,6 +474,9 @@
     <Content Include="Views\Name\Details.cshtml" />
     <Content Include="Views\Name\Edit.cshtml" />
     <Content Include="Views\Name\Index.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Customer\Create.cshtml" />
+    <Content Include="Views\Order\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -57,7 +57,7 @@ namespace PizzaStoreMvc.Client.Controllers
 
     public ActionResult Create()
     {
-      return View(new Customer());
+      return PartialView(new Customer());
     }
 
     //The Post method
@@ -156,7 +156,7 @@ namespace PizzaStoreMvc.Client.Controllers
     public async Task<List<State>> GetState()
     {
       List<State> state = null;
-      HttpResponseMessage response = client.GetAsync(cty).Result;
+      HttpResponseMessage response = client.GetAsync(sta).Result;
       if (response.IsSuccessStatusCode)
       {
         var data = await response.Content.ReadAsStringAsync();

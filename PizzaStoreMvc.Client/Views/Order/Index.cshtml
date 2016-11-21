@@ -17,7 +17,16 @@
         
         <th>
             @Html.DisplayNameFor(model => model.TotalPrice)
-        </th>
+        </th>     
+
+      <th>
+        @Html.DisplayNameFor(model => model.StoreID)
+      </th>
+
+      <th>
+        @Html.DisplayNameFor(model => model.CustomerID)
+      </th>
+
         <th></th>
     </tr>
 
@@ -29,6 +38,12 @@
         <td>
             @Html.DisplayFor(modelItem => item.TotalPrice)
         </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.StoreID)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.CustomerID)
+      </td>         
         
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.OrderID }) |

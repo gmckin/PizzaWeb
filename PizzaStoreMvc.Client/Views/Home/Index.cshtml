@@ -9,8 +9,12 @@
   </div>
 
 
-  <a href="~/Name/Create" class="btn btn-sm btn-success"
+  <a href="~/Customer/Create" class="btn btn-sm btn-success"
      data-toggle="modal" data-target="#myModal">Add Customer</a>
+  <a href="~/Orders/Index" class="btn btn-sm btn-success">View Orders</a>
+  <a href="~/Pizza/Index" class="btn btn-sm btn-success">View Pizzas</a>
+  <a href="~/PizzaCheese/Index" class="btn btn-sm btn-success">View Cheeses by Order</a>
+  <a href="~/PizzaTopping/Index" class="btn btn-sm btn-success">View Toppings by Order</a>
 
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal" aria-hidden="true" data-backdrop="false">
     <div class="modal-dialog">
@@ -56,8 +60,10 @@
         });
     }
   </script>
-
-
+  @Html.Partial("~/Views/Order/Create.cshtml")
+  @Html.Partial("~/Views/Pizza/Create.cshtml")
+  @Html.Partial("~/Views/PizzaCheese/Create.cshtml")
+  @Html.Partial("~/Views/PizzaTopping/Create.cshtml")
   </body>
 
 

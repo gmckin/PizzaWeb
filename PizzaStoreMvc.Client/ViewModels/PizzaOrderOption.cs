@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using PizzaStoreMvc.Business;
-using PizzaStoreMvc.Business.Repositories;
+//using PizzaStoreMvc.Business.Repositories;
 using PizzaStoreMvc.Client.DomainModels;
 using System;
 using System.Collections.Generic;
@@ -112,7 +112,7 @@ namespace PizzaStoreMvc.Client.ViewModels
 
     private async Task<List<SelectListItem>> GetToppingOptions()
     {
-      var toppings = ToppingRepo.GetToppings();
+     // var toppings = ToppingRepo.GetToppings();
       var toppingOptions = new List<SelectListItem>();
       HttpResponseMessage responseMessage = await client.GetAsync(url + "/topping");
       if (responseMessage.IsSuccessStatusCode)

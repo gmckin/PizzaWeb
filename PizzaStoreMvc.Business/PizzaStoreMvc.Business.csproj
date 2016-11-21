@@ -53,11 +53,6 @@
     <Compile Include="Models\Size.cs" />
     <Compile Include="Models\Topping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\CheeseRepo.cs" />
-    <Compile Include="Repositories\CrustRepo.cs" />
-    <Compile Include="Repositories\SauceRepo.cs" />
-    <Compile Include="Repositories\SizeRepo.cs" />
-    <Compile Include="Repositories\ToppingRepo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
