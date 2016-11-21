@@ -13,6 +13,7 @@
     <div class="form-horizontal">
         <h4>PizzaTopping</h4>
       <hr />
+      <p>Pizza number needs to be one in your order.</p>
       @Html.ValidationSummary(true, "", new { @class = "text-danger" })
       <div class="form-group">
         @Html.LabelFor(model => model.PizzaID, "Pizza number", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -21,7 +22,7 @@
           @Html.ValidationMessageFor(model => model.PizzaID, "", new { @class = "text-danger" })
         </div>
       </div>
-
+      <p>Topping numbers are 1 for Pepperoni, 2 for Sausage, 3 for Canadian Bacon, 4 for Olives, 5 for Mushrooms, 6 for Bell Peppers, 7 for Onions, 8 for Chicken, 9 for Pineapple, and 10 for Steak.</p>
       <div class="form-group">
         @Html.LabelFor(model => model.ID, "Cheese Number", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
