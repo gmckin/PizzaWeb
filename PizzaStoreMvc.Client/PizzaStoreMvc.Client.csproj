@@ -334,6 +334,7 @@
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NameController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PhoneController.cs" />
     <Compile Include="Controllers\PizzaCheeseController.cs" />
@@ -475,6 +476,12 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\PizzaPizza\Index.cshtml" />
     <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js.map" />
+    <Content Include="Views\Home\OrderInfo.cshtml" />
+    <Content Include="Views\Name\Create.cshtml" />
+    <Content Include="Views\Name\Delete.cshtml" />
+    <Content Include="Views\Name\Details.cshtml" />
+    <Content Include="Views\Name\Edit.cshtml" />
+    <Content Include="Views\Name\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

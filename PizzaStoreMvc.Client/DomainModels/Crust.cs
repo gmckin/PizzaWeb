@@ -10,7 +10,7 @@ namespace PizzaStoreMvc.Client.DomainModels
   public class Crust :AIngredient
   {
     [Key]
-    public int ID { get; set; }
+    public int CrustID { get; set; }
 
     //[Required]
     //[StringLength(20)]

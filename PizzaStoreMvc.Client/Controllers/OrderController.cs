@@ -45,7 +45,7 @@ namespace PizzaStoreMvc.Client.Controllers
 
     public ActionResult Create()
     {
-      return View(new Customer());
+      return View(new Order());
     }
 
     //The Post method

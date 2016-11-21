@@ -73,7 +73,7 @@ namespace PizzaStoreMvc.Client.Controllers
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult> Create([Bind(Include = "NumberID,Number")] Phone phone)
+    public async Task<ActionResult> Create([Bind(Include = "PhoneID,Number")] Phone phone)
     {
 
       HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url, phone);
@@ -104,7 +104,7 @@ namespace PizzaStoreMvc.Client.Controllers
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult> Edit([Bind(Include = "NumberID,Number")] int id, Phone phone)
+    public async Task<ActionResult> Edit([Bind(Include = "PhoneID,Number")] int id, Phone phone)
     {
       HttpResponseMessage responseMessage = await client.PutAsJsonAsync(url + "/" + id, phone);
       if (responseMessage.IsSuccessStatusCode)

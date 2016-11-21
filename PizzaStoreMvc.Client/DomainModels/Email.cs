@@ -10,9 +10,7 @@ namespace PizzaStoreMvc.Client.DomainModels
   {
     [Key]
     public int EmailID { get; set; }
-    [Required]
-    [DataType(DataType.EmailAddress)]
-    [Display(Name = "Email Address")]
+    [Required]   
     public string EmailAddress { get; set; }
   }
 }
