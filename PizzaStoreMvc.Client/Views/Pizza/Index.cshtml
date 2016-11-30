@@ -12,19 +12,19 @@
 <table class="table">
   <tr>
     <th>
-      @Html.DisplayNameFor(model => model.Order.OrderID)
+      OrderID
     </th>
     <th>
-      @Html.DisplayNameFor(model => model.Crust.Name)
+      Crust
     </th>
     <th>
-      @Html.DisplayNameFor(model => model.Sauce.Name)
+      Sauce
     </th>
     <th>
-      @Html.DisplayNameFor(model => model.Size.Name)
+      Size
     </th>
     <th>
-      @Html.DisplayNameFor(model => model.Size.Price)
+      Price
     </th>
     <th></th>
   </tr>
@@ -48,9 +48,9 @@
         @Html.DisplayFor(modelItem => item.Size.Price)
       </td>
       <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.PizzaId }) |
-        @Html.ActionLink("Details", "Details", new { id = item.PizzaId }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.PizzaId })
+        @Html.ActionLink("Edit", "Edit", new { id = item.PizzaId }) 
+        @*@Html.ActionLink("Details", "Details", new { id = item.PizzaId }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.PizzaId })*@
       </td>
     </tr>
   }

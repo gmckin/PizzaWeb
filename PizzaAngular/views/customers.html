@@ -1,0 +1,48 @@
+﻿<br />
+<h2>Customers:</h2>
+<table style="width: 600px">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="customer in customers">
+      <td>{{customer.ID}}</td>
+      <td><input type="text" ng-model="customer.FirstName" /></td>
+      <td><input type="text" ng-model="customer.LastName" /></td>
+      <td>
+        <button ng-click="deleteCustomer(customer.ID)">Delete</button>
+        <button ng-click="updateCustomer(customer.ID)">Update</button>
+        <button ng-click="getCustomerOrders(customer.ID)">View Orders</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br />
+<button ng-click="insertCustomer()">New Customer</button>
+<br />
+<h2>Orders</h2>
+<table style="width: 400px">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Product</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="order in orders">
+      <td>{{order.ID}}</td>
+      <td>{{order.ProductTitle}}</td>
+      <td>{{order.Total}}</td>
+    </tr>
+  </tbody>
+</table>
+<br />
+<span class="status">{{status}}</span>
+<br />
+<br />

@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using PizzaStoreApp.WebAPI.Models;
+//using PizzaStoreApp.WebAPI.Models;
 using PizzaStoreMvc.Client.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -46,130 +46,130 @@ namespace PizzaStoreMvc.Client.Controllers
     }
 
 
-    [HttpPost]
-    public ActionResult Index2(CustomerViewModel customer)
-    {
-      var cus = new Customer();
+    //[HttpPost]
+    //public ActionResult Index2(CustomerViewModel customer)
+    //{
+    //  var cus = new Customer();
       
       
-      return View(customer);
-    }
+    //  return View(customer);
+    //}
 
-    [HttpPost]
-    public async Task<ActionResult> OrderInfo(PizzaOrderDetail od)
-    {
-      HttpResponseMessage responseMessage = await client.GetAsync(url);
-      if (responseMessage.IsSuccessStatusCode)
-      {
-        var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+    //[HttpPost]
+    //public async Task<ActionResult> OrderInfo(PizzaOrderDetail od)
+    //{
+    //  HttpResponseMessage responseMessage = await client.GetAsync(url);
+    //  if (responseMessage.IsSuccessStatusCode)
+    //  {
+    //    var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 
-        var s = JsonConvert.DeserializeObject<List<Order>>(responseData);
+    //    var s = JsonConvert.DeserializeObject<List<Order>>(responseData);
 
-        return View(s);
-      }
-      return View("Error");
-    }
+    //    return View(s);
+    //  }
+    //  return View("Error");
+    //}
 
-    private async Task<List<SelectListItem>> GetSauceOptions()
-    {
+    //private async Task<List<SelectListItem>> GetSauceOptions()
+    //{
 
-      var sauceOptions = new List<SelectListItem>();
+    //  var sauceOptions = new List<SelectListItem>();
 
-      HttpResponseMessage responseMessage = await client.GetAsync(url + "/sauce");
-      if (responseMessage.IsSuccessStatusCode)
-      {
-        var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+    //  HttpResponseMessage responseMessage = await client.GetAsync(url + "/sauce");
+    //  if (responseMessage.IsSuccessStatusCode)
+    //  {
+    //    var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 
-        var sauce = JsonConvert.DeserializeObject<List<Sauce>>(responseData);
+    //    var sauce = JsonConvert.DeserializeObject<List<Sauce>>(responseData);
 
-        foreach (var item in sauce)
-        {
-          sauceOptions.Add(new SelectListItem() { Text = item.Name, Value = item.SauceID.ToString() });
-        };
-        return sauceOptions;
-      }
-      return sauceOptions;
-    }
+    //    foreach (var item in sauce)
+    //    {
+    //      sauceOptions.Add(new SelectListItem() { Text = item.Name, Value = item.SauceID.ToString() });
+    //    };
+    //    return sauceOptions;
+    //  }
+    //  return sauceOptions;
+    //}
 
-    private async Task<List<SelectListItem>> GetSizeOptions()
-    {
+    //private async Task<List<SelectListItem>> GetSizeOptions()
+    //{
 
-      var sizeOptions = new List<SelectListItem>();
-      HttpResponseMessage responseMessage = await client.GetAsync(url + "/size");
-      if (responseMessage.IsSuccessStatusCode)
-      {
-        var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+    //  var sizeOptions = new List<SelectListItem>();
+    //  HttpResponseMessage responseMessage = await client.GetAsync(url + "/size");
+    //  if (responseMessage.IsSuccessStatusCode)
+    //  {
+    //    var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 
-        var size = JsonConvert.DeserializeObject<List<Size>>(responseData);
+    //    var size = JsonConvert.DeserializeObject<List<Size>>(responseData);
 
-        foreach (var item in size)
-        {
-          sizeOptions.Add(new SelectListItem() { Text = item.Name, Value = item.SizeID.ToString() });
-        };
-        return sizeOptions;
-      }
-      return sizeOptions;
-    }
+    //    foreach (var item in size)
+    //    {
+    //      sizeOptions.Add(new SelectListItem() { Text = item.Name, Value = item.SizeID.ToString() });
+    //    };
+    //    return sizeOptions;
+    //  }
+    //  return sizeOptions;
+    //}
 
-    private async Task<List<SelectListItem>> GetCrustOptions()
-    {
+    //private async Task<List<SelectListItem>> GetCrustOptions()
+    //{
 
-      var crustOptions = new List<SelectListItem>();
-      HttpResponseMessage responseMessage = await client.GetAsync(url + "/crust");
-      if (responseMessage.IsSuccessStatusCode)
-      {
-        var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+    //  var crustOptions = new List<SelectListItem>();
+    //  HttpResponseMessage responseMessage = await client.GetAsync(url + "/crust");
+    //  if (responseMessage.IsSuccessStatusCode)
+    //  {
+    //    var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 
-        var crust = JsonConvert.DeserializeObject<List<Crust>>(responseData);
+    //    var crust = JsonConvert.DeserializeObject<List<Crust>>(responseData);
 
-        foreach (var item in crust)
-        {
-          crustOptions.Add(new SelectListItem() { Text = item.Name, Value = item.CrustID.ToString() });
-        };
-        return crustOptions;
-      }
-      return crustOptions;
+    //    foreach (var item in crust)
+    //    {
+    //      crustOptions.Add(new SelectListItem() { Text = item.Name, Value = item.CrustID.ToString() });
+    //    };
+    //    return crustOptions;
+    //  }
+    //  return crustOptions;
 
-    }
+    //}
 
-    private async Task<List<SelectListItem>> GetToppingOptions()
-    {      
-      var toppingOptions = new List<SelectListItem>();
-      HttpResponseMessage responseMessage = await client.GetAsync(url + "/topping");
-      if (responseMessage.IsSuccessStatusCode)
-      {
-        var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+    //private async Task<List<SelectListItem>> GetToppingOptions()
+    //{      
+    //  var toppingOptions = new List<SelectListItem>();
+    //  HttpResponseMessage responseMessage = await client.GetAsync(url + "/topping");
+    //  if (responseMessage.IsSuccessStatusCode)
+    //  {
+    //    var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 
-        var topping = JsonConvert.DeserializeObject<List<Topping>>(responseData);
+    //    var topping = JsonConvert.DeserializeObject<List<Topping>>(responseData);
 
-        foreach (var item in topping)
-        {
-          toppingOptions.Add(new SelectListItem() { Text = item.Name, Value = item.ToppingID.ToString() });
-        };
-        return toppingOptions;
-      }
-      return toppingOptions;
-    }
+    //    foreach (var item in topping)
+    //    {
+    //      toppingOptions.Add(new SelectListItem() { Text = item.Name, Value = item.ToppingID.ToString() });
+    //    };
+    //    return toppingOptions;
+    //  }
+    //  return toppingOptions;
+    //}
 
-    private async Task<List<SelectListItem>> GetCheeseOptions()
-    {
+    //private async Task<List<SelectListItem>> GetCheeseOptions()
+    //{
 
-      var cheeseOptions = new List<SelectListItem>();
-      HttpResponseMessage responseMessage = await client.GetAsync(url + "/cheese");
-      if (responseMessage.IsSuccessStatusCode)
-      {
-        var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+    //  var cheeseOptions = new List<SelectListItem>();
+    //  HttpResponseMessage responseMessage = await client.GetAsync(url + "/cheese");
+    //  if (responseMessage.IsSuccessStatusCode)
+    //  {
+    //    var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 
-        var cheese = JsonConvert.DeserializeObject<List<Cheese>>(responseData);
+    //    var cheese = JsonConvert.DeserializeObject<List<Cheese>>(responseData);
 
-        foreach (var item in cheese)
-        {
-          cheeseOptions.Add(new SelectListItem() { Text = item.Name, Value = item.CheeseID.ToString() });
-        };
-        return cheeseOptions;
-      }
-      return cheeseOptions;
-    }
+    //    foreach (var item in cheese)
+    //    {
+    //      cheeseOptions.Add(new SelectListItem() { Text = item.Name, Value = item.CheeseID.ToString() });
+    //    };
+    //    return cheeseOptions;
+    //  }
+    //  return cheeseOptions;
+    //}
 
   }
 }

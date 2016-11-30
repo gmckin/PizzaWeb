@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
+using System.Web.Helpers;
 
 namespace PizzaStoreMvc.Client.Controllers
 {
@@ -42,6 +43,27 @@ namespace PizzaStoreMvc.Client.Controllers
         return View(crust);
       }
       return View("Error");
+    }
+
+    private async Task<List<SelectListItem>> GetCrust()
+    {
+
+      var crustOptions = new List<SelectListItem>();
+      HttpResponseMessage responseMessage = await client.GetAsync(url);
+      if (responseMessage.IsSuccessStatusCode)
+      {
+        var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+
+        var crust = JsonConvert.DeserializeObject<List<Crust>>(responseData);
+
+        foreach (var item in crust)
+        {
+          crustOptions.Add(new SelectListItem() { Text = item.Name, Value = item.CrustID.ToString() });
+        };
+        return crustOptions;
+      }
+      return crustOptions;
+
     }
 
     // GET: Crust/Create

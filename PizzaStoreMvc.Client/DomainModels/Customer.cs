@@ -11,6 +11,7 @@ namespace PizzaStoreMvc.Client.DomainModels
   {
     //[Key]
     public int CustomerId { get; set; }
+
     public int NameID { get; set; }
     [ForeignKey("NameID")]
     public Name Name { get; set; }
