@@ -21,7 +21,7 @@ namespace PizzaStoreMvc.Client.Controllers
         private PizzaStoreAPIContext db = new PizzaStoreAPIContext();
     HttpClient client;
     //The URL of the WEB API Service
-    string url = "http://ec2-54-208-26-255.compute-1.amazonaws.com/pizzastoreapi/api/crust";
+    string url = "http://ec2-34-193-186-107.compute-1.amazonaws.com/PizzaStoreAPI.Client/api/crust";
 
     public CrustController()
     {

@@ -15,13 +15,13 @@ namespace PizzaStoreMvc.Client.Controllers
     {
     HttpClient client;
     //The URL of the WEB API Service
-    string url = "http://ec2-54-208-26-255.compute-1.amazonaws.com/pizzastoreapi/api/customer";
-    string addr = "http://ec2-54-208-26-255.compute-1.amazonaws.com/pizzastoreapi/api/address";
-    string cty = "http://ec2-54-208-26-255.compute-1.amazonaws.com/pizzastoreapi/api/city";
-    string sta = "http://ec2-54-208-26-255.compute-1.amazonaws.com/pizzastoreapi/api/state";
-    string zp = "http://ec2-54-208-26-255.compute-1.amazonaws.com/pizzastoreapi/api/zip";
-    string phn = "http://ec2-54-208-26-255.compute-1.amazonaws.com/pizzastoreapi/api/phone";
-    string eml = "http://ec2-54-208-26-255.compute-1.amazonaws.com/pizzastoreapi/api/email";
+    string url = "http://ec2-34-193-186-107.compute-1.amazonaws.com/PizzaStoreAPI.Client/api/customer";
+    string addr = "http://ec2-34-193-186-107.compute-1.amazonaws.com/PizzaStoreAPI.Client/api/address";
+    string cty = "http://ec2-34-193-186-107.compute-1.amazonaws.com/PizzaStoreAPI.Client/api/city";
+    string sta = "http://ec2-34-193-186-107.compute-1.amazonaws.com/PizzaStoreAPI.Client/api/state";
+    string zp = "http://ec2-34-193-186-107.compute-1.amazonaws.com/PizzaStoreAPI.Client/api/zip";
+    string phn = "http://ec2-34-193-186-107.compute-1.amazonaws.com/PizzaStoreAPI.Client/api/phone";
+    string eml = "http://ec2-34-193-186-107.compute-1.amazonaws.com/PizzaStoreAPI.Client/api/email";
 
     //The HttpClient Class, this will be used for performing 
     //HTTP Operations, GET, POST, PUT, DELETE
