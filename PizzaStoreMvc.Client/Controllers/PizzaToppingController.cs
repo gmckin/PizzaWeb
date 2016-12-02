@@ -41,7 +41,7 @@ namespace PizzaStoreMvc.Client.Controllers
 
         return View(pt);
       }
-      return View("Error");
+      return View("Create");
     }
 
 
@@ -79,7 +79,7 @@ namespace PizzaStoreMvc.Client.Controllers
       {
         return RedirectToAction("Index");
       }
-      return RedirectToAction("Error");
+      return RedirectToAction("Create");
     }
 
     // GET: Phone/Edit/5
