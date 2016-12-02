@@ -44,24 +44,24 @@ namespace PizzaStoreMvc.Tests
       Assert.NotNull(actual);
     }
 
-    [Fact]
-    public void Test_GetStoreOrders()
-    {
-      var c = new Store();
+    //[Fact]
+    //public void Test_GetStoreOrders()
+    //{
+    //  var c = new Store();
 
-      var actual = c.Address.ToString();
+    //  var actual = c.Address.ToString();
 
-      Assert.NotNull(actual);
-    }
+    //  Assert.NotNull(actual);
+    //}
 
-    [Fact]
-    public void Test_GetPizzas()
-    {
-      var c = new Pizza();
+    //[Fact]
+    //public void Test_GetPizzas()
+    //{
+    //  var c = new Pizza();
 
-      var actual = c.PizzaId.ToString();
+    //  var actual = c.PizzaId.ToString();
 
-      Assert.NotNull(actual);
-    }
+    //  Assert.NotNull(actual);
+    //}
   }
 }
