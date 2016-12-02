@@ -14,7 +14,7 @@ namespace PizzaStoreMvc.Tests
     private PizzaStoreAPIContext db = new PizzaStoreAPIContext();
 
     [Fact]
-    public void Test_GetCustomerID()
+    public void Test_GetCustomerInfo()
     {
       var c = new Customer();
       
@@ -25,7 +25,7 @@ namespace PizzaStoreMvc.Tests
 
 
     [Fact]
-    public void Test_GetCustomerAddressID()
+    public void Test_GetOrderInfo()
     {
       var c = new Customer();
 
@@ -35,7 +35,7 @@ namespace PizzaStoreMvc.Tests
     }
 
     [Fact]
-    public void Test_GetCustomerCityID()
+    public void Test_GetCustomerOrders()
     {
       var c = new Customer();
 
@@ -44,5 +44,24 @@ namespace PizzaStoreMvc.Tests
       Assert.NotNull(actual);
     }
 
+    [Fact]
+    public void Test_GetStoreOrders()
+    {
+      var c = new Store();
+
+      var actual = c.Address.ToString();
+
+      Assert.NotNull(actual);
+    }
+
+    [Fact]
+    public void Test_GetPizzas()
+    {
+      var c = new Pizza();
+
+      var actual = c.PizzaId.ToString();
+
+      Assert.NotNull(actual);
+    }
   }
 }
